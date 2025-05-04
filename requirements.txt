@@ -6,6 +6,7 @@ requests
 tgcrypto
 ffmpeg-python
 python-dotenv
+yt-dlp
 youtube_search
 youtube_search_python
 pyrogram==2.0.106
