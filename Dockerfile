@@ -1,26 +1,16 @@
-FROM debian:latest
+FROM python:3.11-slim
 
-# Update dan install package dasar
-RUN apt update && apt upgrade -y && \
-    apt install -y git curl python3-pip ffmpeg python3-venv
+# Install dependency system
+RUN apt update && apt install -y git ffmpeg
 
-# Bikin dan aktifin virtual environment
-RUN python3 -m venv /venv
-ENV PATH="/venv/bin:$PATH"
-
-# Salin dan install requirements awal
-COPY requirements.txt /requirements.txt
-RUN pip install --upgrade pip
-RUN pip install -r /requirements.txt
-
-# Set working directory
+# Set working dir
 WORKDIR /RadioPlayerV3
 
-# Jalankan perintah cloning dan start bot langsung dari CMD
-CMD bash -c "\
-    echo 'Cloning Repo, Please Wait...' && \
-    git clone https://github.com/AsmSafone/RadioPlayerV3.git /RadioPlayerV3 && \
-    echo 'Installing Additional Requirements...' && \
-    pip install -r /RadioPlayerV3/requirements.txt && \
-    echo 'Starting Bot...' && \
-    python3 main.py"
+# Clone repo langsung saat build
+RUN git clone https://github.com/syntheticg/RadioPlayerV3.git /RadioPlayerV3
+
+# Install Python requirements
+RUN pip install -U pip && pip install -r requirements.txt
+
+# Command to run the bot
+CMD ["python3", "main.py"]
