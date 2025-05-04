@@ -11,4 +11,3 @@ youtube_search
 youtube_search_python
 pyrogram==2.0.106
 py-tgcalls
-git+https://github.com/asmsafone/downloader
